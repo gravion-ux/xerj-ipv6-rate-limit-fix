@@ -5,8 +5,8 @@ by [gravion-ux](https://github.com/gravion-ux) (Priyanshu Kumar Thakur) after Iv
 for collaboration on the project.
 
 **This repository contains no upstream code.** It holds the patch, the regression test and
-the pull-request text, so that the change can be reviewed as a unit and applied to the
-upstream `corpus-hub` branch with one command.
+the pull-request text, so that the change can be reviewed as a unit. The change itself has
+since been merged upstream — see [The upstream pull request](#the-upstream-pull-request).
 
 ## The defect
 
@@ -122,7 +122,11 @@ PR_BODY.md                                       the pull-request text
 
 ## Applying the patch
 
-Against a checkout of `xerj-org/xerj` on the `corpus-hub` branch:
+This change is **already merged upstream**, so the patch is kept here as the record of what
+was contributed rather than as something to apply again.
+
+Against a checkout of `xerj-org/xerj` on the `corpus-hub` branch at a tip that predates the
+merge:
 
 ```bash
 git checkout corpus-hub
@@ -131,20 +135,36 @@ cp tools/corpus-hub-site/test_hub_usage_rate.mjs tools/corpus-hub-site/
 node tools/corpus-hub-site/test_hub_usage_rate.mjs
 ```
 
-The pull request is based on `dc602af`. The patch's pre-image is blob `ca0103c`, and that
-blob is unchanged at every `corpus-hub` tip from `dc602af` through the current tip
-`28e67cb0` — so the patch applies to the branch as it stands.
+The pull request was based on `dc602af`, and its pre-image is blob `ca0103c`. That blob was
+unchanged at every `corpus-hub` tip from `dc602af` through `28e67cb0`, which is why the
+patch applied cleanly when it was opened. It does not apply to the branch today: the merge
+replaced `ca0103c` with the post-image blob `6baa961`, so the hunk no longer has a
+pre-image to match.
+
+The regression test needs no patch to run against the current branch, because the merge
+took the test with it:
+
+```bash
+git clone --depth 1 --branch corpus-hub https://github.com/xerj-org/xerj.git
+cd xerj
+node tools/corpus-hub-site/test_hub_usage_rate.mjs
+```
+
+At `corpus-hub` tip `31721e6` that command reports 4 tests, 4 passing, 0 failing.
 
 ## The upstream pull request
 
-The pull request is open upstream: [xerj-org/xerj#2872](https://github.com/xerj-org/xerj/pull/2872).
+The pull request is **merged**: [xerj-org/xerj#2872](https://github.com/xerj-org/xerj/pull/2872),
+merged on 2026-11-17 as `0cc317fc`. The commit that carries it upstream is `4820236b`,
+authored from the fork branch `fix/hub-usage-ipv6-rate-limit`.
 
 Its body splits what was **verified** from what was **assumed**, and quotes only numbers
 that came from a command that was actually run. The field report the upstream contribution
 guide asks for is filed in a second, single-file pull request against `main`.
 
-No direct commit is made to `xerj-org/xerj` from this repository — the change is contributed
-as a pull request from the fork, and the branch here carries the same patch.
+The change was contributed as a pull request from the fork, and this repository carries the
+same patch and the same test as the record of that contribution. Upstream `corpus-hub` now
+holds both, so nothing here needs to be merged again.
 
 ## Licence
 
