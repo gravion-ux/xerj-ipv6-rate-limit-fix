@@ -1,3 +1,5 @@
+![xerj-ipv6-rate-limit-fix banner](assets/banner.svg)
+
 # XERJ Corpus Hub — IPv6 /64 rate-limit fix
 
 A collaboration contribution to [xerj-org/xerj](https://github.com/xerj-org/xerj), prepared
