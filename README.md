@@ -2,6 +2,9 @@
 
 # XERJ Corpus Hub — IPv6 /64 rate-limit fix
 
+> **Status: Maintenance** — the change has been merged upstream; this
+> repository remains the patch and regression-test record.
+
 A collaboration contribution to [xerj-org/xerj](https://github.com/xerj-org/xerj), prepared
 by [gravion-ux](https://github.com/gravion-ux) (Priyanshu Kumar Thakur) after Ivan N asked
 for collaboration on the project.
