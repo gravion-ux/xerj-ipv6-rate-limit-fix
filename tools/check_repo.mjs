@@ -6,6 +6,9 @@ const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf
 const readme = read('README.md');
 const banner = read('assets/banner.svg');
 const usage = read('functions/_lib/hub-usage.js');
+const stars = read('functions/api/hub-stars.js');
+const session = read('functions/_lib/session.js');
+const upstream = read('UPSTREAM.md');
 const patch = read('patches/corpus-hub-ipv6-rate-limit.patch');
 const regressionTest = read('tools/corpus-hub-site/test_hub_usage_rate.mjs');
 const licence = read('LICENSE');
@@ -39,6 +42,12 @@ for (const testName of [
 ]) {
   assert.ok(regressionTest.includes(testName), `missing regression case: ${testName}`);
 }
+
+assert.match(stars, /export function sourceKey\(ip\)/);
+assert.match(session, /export async function currentUser\(/);
+assert.match(upstream, /xerj-org\/xerj/);
+assert.match(upstream, /Apache-2\.0/);
+assert.match(upstream, /5fdddc2f145bd6a3bcf4eb022a438745a0d8e0f6/);
 
 assert.match(licence, /Copyright \(c\) 2026 Priyanshu Kumar Thakur/);
 

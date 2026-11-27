@@ -6,9 +6,15 @@ A collaboration contribution to [xerj-org/xerj](https://github.com/xerj-org/xerj
 by [gravion-ux](https://github.com/gravion-ux) (Priyanshu Kumar Thakur) after Ivan N asked
 for collaboration on the project.
 
-**This repository contains no upstream code.** It holds the patch, the regression test and
-the pull-request text, so that the change can be reviewed as a unit. The change itself has
-since been merged upstream — see [The upstream pull request](#the-upstream-pull-request).
+**This repository holds the patch, the regression test and the pull-request text**, so that
+the change can be reviewed as a unit. The change itself has since been merged upstream —
+see [The upstream pull request](#the-upstream-pull-request).
+
+Three files are copied verbatim from the upstream project so the regression test can run
+here without the whole upstream tree: `functions/_lib/hub-usage.js` (the patched file),
+`functions/api/hub-stars.js` and `functions/_lib/session.js`. They stay under the upstream
+project's Apache-2.0 licence — see [UPSTREAM.md](UPSTREAM.md). Everything else in this
+repository is MIT.
 
 ## The defect
 
@@ -116,11 +122,26 @@ $ node tools/corpus-hub-site/test_hub_usage_rate.mjs
 ## Layout
 
 ```
-functions/_lib/hub-usage.js                      the patched file (verbatim)
+functions/_lib/hub-usage.js                      the patched file (verbatim, upstream)
+functions/api/hub-stars.js                       sourceKey() helper (verbatim, upstream)
+functions/_lib/session.js                        session helper hub-stars.js imports (verbatim, upstream)
 tools/corpus-hub-site/test_hub_usage_rate.mjs   the new regression test (verbatim)
 patches/corpus-hub-ipv6-rate-limit.patch        git diff against the branch tip
 PR_BODY.md                                       the pull-request text
+UPSTREAM.md                                      provenance of the copied upstream files
 ```
+
+## Running the regression test here
+
+The three upstream files above are enough to run the regression test standalone — no
+upstream checkout, no dependencies:
+
+```bash
+node --test tools/corpus-hub-site/test_hub_usage_rate.mjs
+```
+
+CI runs exactly that command on every push and pull request, so the fix is checked on
+every change instead of only when an upstream tree happens to be available.
 
 ## Applying the patch
 
@@ -170,5 +191,8 @@ holds both, so nothing here needs to be merged again.
 
 ## Licence
 
-The patch and the test are offered under the MIT licence in [`LICENSE`](LICENSE). The
-upstream project keeps its own licence.
+The patch, the regression test and this repository's own files are offered under the MIT
+licence in [`LICENSE`](LICENSE). The three upstream files copied from `xerj-org/xerj` —
+`functions/_lib/hub-usage.js`, `functions/api/hub-stars.js` and `functions/_lib/session.js`
+— remain under that project's Apache-2.0 licence; see [UPSTREAM.md](UPSTREAM.md) and
+[UPSTREAM-LICENSE.txt](UPSTREAM-LICENSE.txt). The upstream project keeps its own licence.
